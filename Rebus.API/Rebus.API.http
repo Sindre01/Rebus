@@ -1,0 +1,6 @@
+@Rebus.API_HostAddress = http://localhost:5220
+
+GET {{Rebus.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
