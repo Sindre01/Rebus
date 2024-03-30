@@ -6,4 +6,5 @@ namespace Rebus.Domain.Repositories;
 public interface IUsersRepository
 {
     Task<IEnumerable<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(int id);
 }

@@ -13,4 +13,14 @@ internal class UsersRepository(RebusDbContext dbContext)
         var users = await dbContext.Users.ToListAsync();
         return users;
     }
+
+    public async Task<User?> GetByIdAsync(int id)
+    {
+        var user = await dbContext.Users
+            .Include(u => u.GameUserAccesses)
+            .Include(u => u.GameCreators)
+            .Include(u => u.UserGameHistories)
+            .FirstOrDefaultAsync(x => x.UserId == id);
+        return user;
+    }
 }

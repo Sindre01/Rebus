@@ -4,3 +4,4 @@
 GET {{Rebus.API_HostAddress}}/api/users
 
 ###
+GET {{Rebus.API_HostAddress}}/api/users/1

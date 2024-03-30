@@ -20,13 +20,38 @@ internal class RebusSeeder(RebusDbContext dbContext) : IRebusSeeder
 
     private IEnumerable<User> GetUsers()
     {
-        List<User> users = [
-            new()
-            {
-                UserName = "Sindre",
-                isLoggedIn = false,
-            }
-            ];
-        return users;
+        var user = new User
+        {
+            UserName = "Sindre",
+            isLoggedIn = false,
+        };
+
+
+        var userAccess = new GameUserAccess
+        {
+            AccessTime = DateTime.UtcNow,
+            User = user // Set the User navigation property
+        };
+
+
+        var accessCode = new GameAccessCode
+        {
+            IsActive = true,
+        };
+
+        var game = new Game
+        {
+            GameName = "TestGame",
+            Status = 0,
+
+
+        };
+
+        user.GameUserAccesses = new List<GameUserAccess> { userAccess };
+        accessCode.Game = game;
+        game.GameAccessCode = accessCode;
+        userAccess.GameAccessCode = accessCode;
+
+        return new List<User> { user };
     }
 }

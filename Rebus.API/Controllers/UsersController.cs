@@ -13,4 +13,14 @@ public class UsersController(IUsersService usersService) : ControllerBase
         var users = await usersService.GetAllUsers(); 
         return Ok(users);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        var user = await usersService.GetById(id);
+        if (user is null)
+            return NotFound();
+       
+        return Ok(user);
+    }
 }

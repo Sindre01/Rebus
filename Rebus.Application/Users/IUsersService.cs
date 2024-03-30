@@ -1,9 +1,10 @@
-﻿using Rebus.Domain.Entities;
+﻿using Rebus.Application.Users.Dtos;
 
 namespace Rebus.Application.Users
 {
     public interface IUsersService
     {
-        Task<IEnumerable<User>> GetAllUsers();
+        Task<IEnumerable<UserDto>> GetAllUsers();
+        Task<UserDto?> GetById(int id);
     }
 }

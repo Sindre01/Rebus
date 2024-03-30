@@ -12,7 +12,7 @@ using Rebus.Infrastructure.Persistance;
 namespace Rebus.Infrastructure.Migrations
 {
     [DbContext(typeof(RebusDbContext))]
-    [Migration("20240329153651_Init")]
+    [Migration("20240330115402_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -43,6 +43,9 @@ namespace Rebus.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("GameId");
 
                     b.ToTable("Game");
@@ -62,14 +65,14 @@ namespace Rebus.Infrastructure.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("TimeUsed")
                         .HasColumnType("int");
 
                     b.Property<int?>("UsageLimit")
                         .HasColumnType("int");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
 
                     b.HasKey("GameAccessCodeId");
 
@@ -203,9 +206,6 @@ namespace Rebus.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -344,7 +344,8 @@ namespace Rebus.Infrastructure.Migrations
 
             modelBuilder.Entity("Rebus.Domain.Entities.Game", b =>
                 {
-                    b.Navigation("GameAccessCode");
+                    b.Navigation("GameAccessCode")
+                        .IsRequired();
 
                     b.Navigation("GameCreators");
 
