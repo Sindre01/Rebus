@@ -17,7 +17,7 @@ public class GameDto
     public int GameId { get; set; }
     public string GameName { get; set; } = string.Empty;
     public Statuses Status { get; set; }
-    public GameAccessCodeDto GameAccessCode { get; set; } = new();
+    public GameAccessCodeDto? GameAccessCode { get; set; }
     public List<GameCreatorDto> GameCreators { get; set; } = [];
     public string? GameDescription { get; set; }
     public DateTime? DateCreated { get; set; }
@@ -33,7 +33,7 @@ public class GameDto
            GameDescription = Game.GameDescription,
            DateCreated = Game.DateCreated,
            Status = (Statuses) Game.Status,
-           GameAccessCode = GameAccessCodeDto.FromEntity(Game.GameAccessCode),
+           GameAccessCode = Game.GameAccessCode != null ? GameAccessCodeDto.FromEntity(Game.GameAccessCode)! : throw new InvalidOperationException("GameAccessCode cannot be null."),
            GameCreators = Game.GameCreators.Select(GameCreatorDto.FromEntity).ToList()
             
 

@@ -12,7 +12,7 @@ namespace Rebus.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Game",
+                name: "Games",
                 columns: table => new
                 {
                     GameId = table.Column<int>(type: "int", nullable: false)
@@ -24,7 +24,7 @@ namespace Rebus.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Game", x => x.GameId);
+                    table.PrimaryKey("PK_Games", x => x.GameId);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,7 +48,7 @@ namespace Rebus.Infrastructure.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    isLoggedIn = table.Column<bool>(type: "bit", nullable: false),
+                    IsLoggedIn = table.Column<bool>(type: "bit", nullable: false),
                     Location_locationId = table.Column<int>(type: "int", nullable: true),
                     Location_latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location_longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -65,7 +65,7 @@ namespace Rebus.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameAccessCode",
+                name: "GameAccessCodes",
                 columns: table => new
                 {
                     GameAccessCodeId = table.Column<int>(type: "int", nullable: false)
@@ -78,11 +78,11 @@ namespace Rebus.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameAccessCode", x => x.GameAccessCodeId);
+                    table.PrimaryKey("PK_GameAccessCodes", x => x.GameAccessCodeId);
                     table.ForeignKey(
-                        name: "FK_GameAccessCode_Game_GameId",
+                        name: "FK_GameAccessCodes_Games_GameId",
                         column: x => x.GameId,
-                        principalTable: "Game",
+                        principalTable: "Games",
                         principalColumn: "GameId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -102,9 +102,9 @@ namespace Rebus.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_GameCreator", x => x.GameCreatorId);
                     table.ForeignKey(
-                        name: "FK_GameCreator_Game_GameId",
+                        name: "FK_GameCreator_Games_GameId",
                         column: x => x.GameId,
-                        principalTable: "Game",
+                        principalTable: "Games",
                         principalColumn: "GameId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -137,9 +137,9 @@ namespace Rebus.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_UserGameHistories", x => x.UserGameHistoryId);
                     table.ForeignKey(
-                        name: "FK_UserGameHistories_Game_GameId",
+                        name: "FK_UserGameHistories_Games_GameId",
                         column: x => x.GameId,
-                        principalTable: "Game",
+                        principalTable: "Games",
                         principalColumn: "GameId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -157,7 +157,7 @@ namespace Rebus.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameUserAccess",
+                name: "GameUserAccesses",
                 columns: table => new
                 {
                     GameUserAccessId = table.Column<int>(type: "int", nullable: false)
@@ -168,15 +168,15 @@ namespace Rebus.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameUserAccess", x => x.GameUserAccessId);
+                    table.PrimaryKey("PK_GameUserAccesses", x => x.GameUserAccessId);
                     table.ForeignKey(
-                        name: "FK_GameUserAccess_GameAccessCode_GameAccessCodeId",
+                        name: "FK_GameUserAccesses_GameAccessCodes_GameAccessCodeId",
                         column: x => x.GameAccessCodeId,
-                        principalTable: "GameAccessCode",
+                        principalTable: "GameAccessCodes",
                         principalColumn: "GameAccessCodeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GameUserAccess_Users_UserId",
+                        name: "FK_GameUserAccesses_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -184,8 +184,8 @@ namespace Rebus.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameAccessCode_GameId",
-                table: "GameAccessCode",
+                name: "IX_GameAccessCodes_GameId",
+                table: "GameAccessCodes",
                 column: "GameId",
                 unique: true);
 
@@ -205,13 +205,13 @@ namespace Rebus.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameUserAccess_GameAccessCodeId",
-                table: "GameUserAccess",
+                name: "IX_GameUserAccesses_GameAccessCodeId",
+                table: "GameUserAccesses",
                 column: "GameAccessCodeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameUserAccess_UserId",
-                table: "GameUserAccess",
+                name: "IX_GameUserAccesses_UserId",
+                table: "GameUserAccesses",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -237,13 +237,13 @@ namespace Rebus.Infrastructure.Migrations
                 name: "GameCreator");
 
             migrationBuilder.DropTable(
-                name: "GameUserAccess");
+                name: "GameUserAccesses");
 
             migrationBuilder.DropTable(
                 name: "UserGameHistories");
 
             migrationBuilder.DropTable(
-                name: "GameAccessCode");
+                name: "GameAccessCodes");
 
             migrationBuilder.DropTable(
                 name: "Roles");
@@ -252,7 +252,7 @@ namespace Rebus.Infrastructure.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Game");
+                name: "Games");
         }
     }
 }

@@ -10,7 +10,7 @@ public class Game
     }
 
     public int GameId { get; set; }
-    public GameAccessCode GameAccessCode { get; set; } = new();
+    public GameAccessCode? GameAccessCode { get; set; }
     public List<UserGameHistory> UserGameHistories { get; set; } = [];
     public List<GameCreator> GameCreators { get; set; } = [];
 

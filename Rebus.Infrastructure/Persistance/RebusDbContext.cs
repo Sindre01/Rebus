@@ -7,11 +7,9 @@ internal class RebusDbContext(DbContextOptions<RebusDbContext> options) : DbCont
     internal DbSet<User> Users { get; set; } 
     internal DbSet<UserGameHistory> UserGameHistories { get; set; }
     internal DbSet<Role> Roles { get; set; }
-    internal DbSet<GameUserAccess> GameUserAccess { get; set; }
-    internal DbSet<GameAccessCode> GameAccessCode { get; set; }
-    internal DbSet<Game> Game { get; set; }
-
-
+    internal DbSet<GameUserAccess> GameUserAccesses { get; set; }
+    internal DbSet<GameAccessCode> GameAccessCodes { get; set; }
+    internal DbSet<Game> Games { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

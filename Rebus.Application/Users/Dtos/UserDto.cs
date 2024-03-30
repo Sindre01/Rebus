@@ -9,7 +9,7 @@ public  class UserDto
 {
     public int UserId { get; set; }
     public string UserName { get; set; } = default!;
-    public bool isLoggedIn { get; set; }
+    public bool IsLoggedIn { get; set; }
 
     //Location
     public string? latitude { get; set; }
@@ -32,7 +32,7 @@ public  class UserDto
         {
             UserId = user.UserId,
             UserName = user.UserName,
-            isLoggedIn = user.isLoggedIn,
+            IsLoggedIn = user.IsLoggedIn,
             latitude = user.Location?.latitude,
             longitude = user.Location?.longitude,
             city = user.Location?.city,

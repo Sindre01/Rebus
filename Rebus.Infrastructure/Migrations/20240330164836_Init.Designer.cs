@@ -12,7 +12,7 @@ using Rebus.Infrastructure.Persistance;
 namespace Rebus.Infrastructure.Migrations
 {
     [DbContext(typeof(RebusDbContext))]
-    [Migration("20240330115402_Init")]
+    [Migration("20240330164836_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -48,7 +48,7 @@ namespace Rebus.Infrastructure.Migrations
 
                     b.HasKey("GameId");
 
-                    b.ToTable("Game");
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.GameAccessCode", b =>
@@ -79,7 +79,7 @@ namespace Rebus.Infrastructure.Migrations
                     b.HasIndex("GameId")
                         .IsUnique();
 
-                    b.ToTable("GameAccessCode");
+                    b.ToTable("GameAccessCodes");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.GameCreator", b =>
@@ -136,7 +136,7 @@ namespace Rebus.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GameUserAccess");
+                    b.ToTable("GameUserAccesses");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.Role", b =>
@@ -176,12 +176,12 @@ namespace Rebus.Infrastructure.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsLoggedIn")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isLoggedIn")
-                        .HasColumnType("bit");
 
                     b.HasKey("UserId");
 
@@ -344,8 +344,7 @@ namespace Rebus.Infrastructure.Migrations
 
             modelBuilder.Entity("Rebus.Domain.Entities.Game", b =>
                 {
-                    b.Navigation("GameAccessCode")
-                        .IsRequired();
+                    b.Navigation("GameAccessCode");
 
                     b.Navigation("GameCreators");
 

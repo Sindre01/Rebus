@@ -19,7 +19,7 @@ public class GameUserAccessDto
           GameUserAccessId = GameUserAccess.GameUserAccessId,
           User = GameUserAccess.User != null ? UserDto.FromEntity(GameUserAccess.User)! : throw new InvalidOperationException("User cannot be null."),
           GameAccessCode = GameUserAccess.GameAccessCode != null ? GameAccessCodeDto.FromEntity(GameUserAccess.GameAccessCode)! : throw new InvalidOperationException("GameAccessCode cannot be null."),
-           AccessTime = GameUserAccess.AccessTime,
+          AccessTime = GameUserAccess.AccessTime,
         };
     }
 }

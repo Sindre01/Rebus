@@ -10,16 +10,22 @@ internal class UsersRepository(RebusDbContext dbContext)
 {
     public async Task<IEnumerable<User>> GetAllAsync()
     {
-        var users = await dbContext.Users.ToListAsync();
+        var users = await dbContext.Users
+          //  .Include(u => u.GameUserAccesses)
+           // .Include(u => u.GameCreators)
+            //.Include(u => u.UserGameHistories)
+            //.AsSplitQuery()
+            .ToListAsync();
         return users;
     }
 
     public async Task<User?> GetByIdAsync(int id)
     {
         var user = await dbContext.Users
-            .Include(u => u.GameUserAccesses)
-            .Include(u => u.GameCreators)
-            .Include(u => u.UserGameHistories)
+          //  .Include(u => u.GameUserAccesses)
+            // .Include(u => u.GameCreators)
+            //.Include(u => u.UserGameHistories)
+            //.AsSplitQuery()
             .FirstOrDefaultAsync(x => x.UserId == id);
         return user;
     }

@@ -1,4 +1,5 @@
-﻿using Rebus.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Rebus.Domain.Entities;
 using Rebus.Infrastructure.Persistance;
 
 namespace Rebus.Infrastructure.Seeders;
@@ -6,52 +7,80 @@ namespace Rebus.Infrastructure.Seeders;
 internal class RebusSeeder(RebusDbContext dbContext) : IRebusSeeder
 {
     public async Task Seed()
-    {
-        if (await dbContext.Database.CanConnectAsync())
+{
+        if (!dbContext.Users.Any())
         {
-            if (!dbContext.Users.Any())
+            // Seed Users
+            var users = new List<User>
+        {
+            new User
             {
-                var users = GetUsers();
-                dbContext.Users.AddRange(users);
-                await dbContext.SaveChangesAsync();
+                UserName = "User1",
+                IsLoggedIn = true,
+                // Assuming other required properties are set here...
+            },
+            new User
+            {
+                UserName = "User2",
+                IsLoggedIn = false,
+                // Assuming other required properties are set here...
             }
+            };
+
+            await dbContext.Users.AddRangeAsync(users);
         }
+        await dbContext.SaveChangesAsync();
+
+        if (!dbContext.Games.Any() && !dbContext.GameAccessCodes.Any())
+        {
+            // Create a new game
+            var game = new Game
+            {
+                GameName = "Game1",
+                // Other required properties...
+            };
+
+            // Create a new GameAccessCode and associate it with the game
+            var gameAccessCode = new GameAccessCode
+            {
+                IsActive = true,
+                Game = game, // Associate the GameAccessCode with the newly created game
+                             // Other required properties...
+            };
+
+            // Optionally, associate the game with the access code
+            // This step may be redundant depending on your configuration and needs
+            game.GameAccessCode = gameAccessCode;
+
+            // Add the game (and by extension, the game access code) to the context
+            dbContext.Games.Add(game);
+
+            // Since the entities are related, saving changes will persist both to the database
+            await dbContext.SaveChangesAsync();
+        }
+
+        if (!dbContext.GameUserAccesses.Any())
+        {
+            var user = dbContext.Users.First(); // Example: getting the first user
+            var accessCode = dbContext.GameAccessCodes.First(); // Example: getting the first access code
+
+            var gameUserAccesses = new List<GameUserAccess>
+        {
+            new GameUserAccess
+            {
+                UserId = user.UserId,
+                GameAccessCodeId = accessCode.GameAccessCodeId,
+                AccessTime = DateTime.UtcNow,
+                // Assuming other required properties are set here...
+            }
+            };
+
+            await dbContext.GameUserAccesses.AddRangeAsync(gameUserAccesses);
+        }
+
+        await dbContext.SaveChangesAsync();
+
     }
 
-    private IEnumerable<User> GetUsers()
-    {
-        var user = new User
-        {
-            UserName = "Sindre",
-            isLoggedIn = false,
-        };
 
-
-        var userAccess = new GameUserAccess
-        {
-            AccessTime = DateTime.UtcNow,
-            User = user // Set the User navigation property
-        };
-
-
-        var accessCode = new GameAccessCode
-        {
-            IsActive = true,
-        };
-
-        var game = new Game
-        {
-            GameName = "TestGame",
-            Status = 0,
-
-
-        };
-
-        user.GameUserAccesses = new List<GameUserAccess> { userAccess };
-        accessCode.Game = game;
-        game.GameAccessCode = accessCode;
-        userAccess.GameAccessCode = accessCode;
-
-        return new List<User> { user };
-    }
 }
