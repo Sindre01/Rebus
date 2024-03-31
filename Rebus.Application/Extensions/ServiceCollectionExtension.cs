@@ -10,6 +10,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IGameUserAccessesService, GameUserAccessesService>();
-
+        services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
     }
 }

@@ -12,36 +12,15 @@ public  class UserDto
     public bool IsLoggedIn { get; set; }
 
     //Location
-    public string? latitude { get; set; }
-    public string? longitude { get; set; }
-    public string? city { get; set; }
-    public string? street { get; set; }
-    public string? postalCode { get; set; }
+    public string? Latitude { get; set; }
+    public string? Longitude { get; set; }
+    public string? City { get; set; }
+    public string? Street { get; set; }
+    public string? PostalCode { get; set; }
 
     //public List<GameUserAccessDto> GameUserAccesses { get; set; } = [];
     //public List<UserGameHistoryDto> UserGameHistories { get; set; } = [];
     //public List<GameCreatorDto> GameCreators { get; set; } = [];
     public string? FullName { get; set; }
     public DateTime? DateJoined { get; set; }
-
-    public static UserDto? FromEntity(User? user)
-    {
-        if (user == null) return null;
-
-        return new UserDto()
-        {
-            UserId = user.UserId,
-            UserName = user.UserName,
-            IsLoggedIn = user.IsLoggedIn,
-            latitude = user.Location?.latitude,
-            longitude = user.Location?.longitude,
-            city = user.Location?.city,
-            street = user.Location?.street,
-            postalCode = user.Location?.postalCode,
-            DateJoined = user.DateJoined,
-            //GameCreators = user.GameCreators.Select(GameCreatorDto.FromEntity).ToList(),
-            //UserGameHistories = user.UserGameHistories.Select(UserGameHistoryDto.FromEntity).ToList(),
-            //GameUserAccesses = user.GameUserAccesses.Select(GameUserAccessDto.FromEntity).ToList()
-        };
-    }
 }

@@ -1,11 +1,11 @@
 ﻿namespace Rebus.Domain.Entities;
 public class Location
 {
-    public int locationId { get; set; }
-    public string? latitude { get; set; }
-    public string? longitude { get; set; }
-    public string? city { get; set; }
-    public string? street { get; set; }
-    public string? postalCode { get; set; }
+    public int LocationId { get; set; }
+    public string? Latitude { get; set; }
+    public string? Longitude { get; set; }
+    public string? City { get; set; }
+    public string? Street { get; set; }
+    public string? PostalCode { get; set; }
 }
 
