@@ -11,7 +11,6 @@ internal class UsersService(IUsersRepository usersRepository,
     {
         logger.LogInformation("Getting all users");
         var users = await usersRepository.GetAllAsync();
-
         var usersDto = users.Select(UserDto.FromEntity);
         return usersDto!;
     }

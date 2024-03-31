@@ -11,9 +11,10 @@ public class GameUserAccessDto
     public UserDto User { get; set; } = null!; // Required reference navigation to principal
     public GameAccessCodeDto GameAccessCode { get; set; } = null!; // Required reference navigation to principal
     public DateTime AccessTime { get; set; }
-    public static GameUserAccessDto FromEntity(GameUserAccess GameUserAccess)
+    public static GameUserAccessDto? FromEntity(GameUserAccess? GameUserAccess)
     {
- 
+        if (GameUserAccess == null) return null;
+
         return new GameUserAccessDto()
         {
           GameUserAccessId = GameUserAccess.GameUserAccessId,

@@ -12,7 +12,7 @@ using Rebus.Infrastructure.Persistance;
 namespace Rebus.Infrastructure.Migrations
 {
     [DbContext(typeof(RebusDbContext))]
-    [Migration("20240330164836_Init")]
+    [Migration("20240331130122_Init")]
     partial class Init
     {
         /// <inheritdoc />

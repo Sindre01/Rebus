@@ -23,4 +23,6 @@ public class UsersController(IUsersService usersService) : ControllerBase
        
         return Ok(user);
     }
+
+
 }

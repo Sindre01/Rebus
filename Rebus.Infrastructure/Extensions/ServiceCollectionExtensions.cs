@@ -19,5 +19,6 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped<IRebusSeeder, RebusSeeder>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IGameUserAccessesRepository, GameUserAccessesRepository>();
     }
 }

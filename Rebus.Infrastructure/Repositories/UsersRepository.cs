@@ -11,10 +11,8 @@ internal class UsersRepository(RebusDbContext dbContext)
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         var users = await dbContext.Users
-          //  .Include(u => u.GameUserAccesses)
-           // .Include(u => u.GameCreators)
-            //.Include(u => u.UserGameHistories)
-            //.AsSplitQuery()
+           //.Include(u => u.GameUserAccesses)
+           //.ThenInclude(gua => gua.GameAccessCode)
             .ToListAsync();
         return users;
     }

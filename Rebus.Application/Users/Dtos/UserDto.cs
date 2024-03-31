@@ -18,9 +18,9 @@ public  class UserDto
     public string? street { get; set; }
     public string? postalCode { get; set; }
 
-    public List<GameUserAccessDto> GameUserAccesses { get; set; } = [];
-    public List<UserGameHistoryDto> UserGameHistories { get; set; } = [];
-    public List<GameCreatorDto> GameCreators { get; set; } = [];
+    //public List<GameUserAccessDto> GameUserAccesses { get; set; } = [];
+    //public List<UserGameHistoryDto> UserGameHistories { get; set; } = [];
+    //public List<GameCreatorDto> GameCreators { get; set; } = [];
     public string? FullName { get; set; }
     public DateTime? DateJoined { get; set; }
 
@@ -39,9 +39,9 @@ public  class UserDto
             street = user.Location?.street,
             postalCode = user.Location?.postalCode,
             DateJoined = user.DateJoined,
-            GameCreators = user.GameCreators.Select(GameCreatorDto.FromEntity).ToList(),
-            UserGameHistories = user.UserGameHistories.Select(UserGameHistoryDto.FromEntity).ToList(),
-            GameUserAccesses = user.GameUserAccesses.Select(GameUserAccessDto.FromEntity).ToList()
+            //GameCreators = user.GameCreators.Select(GameCreatorDto.FromEntity).ToList(),
+            //UserGameHistories = user.UserGameHistories.Select(UserGameHistoryDto.FromEntity).ToList(),
+            //GameUserAccesses = user.GameUserAccesses.Select(GameUserAccessDto.FromEntity).ToList()
         };
     }
 }

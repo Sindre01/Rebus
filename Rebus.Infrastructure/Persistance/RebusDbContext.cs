@@ -19,42 +19,21 @@ internal class RebusDbContext(DbContextOptions<RebusDbContext> options) : DbCont
               .OwnsOne(r => r.Location);
 
         //relations:
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.GameUserAccesses)
-            .WithOne(ua => ua.User)
-            .HasForeignKey(ua => ua.UserId) // ("UserId") Shadow key
-            .IsRequired();  //each GameUserAccess must have a related User,
+        /*   modelBuilder.Entity<Game>()
+       .HasOne(g => g.GameAccessCode)
+       .WithOne(ac => ac.Game)
+       .HasForeignKey<GameAccessCode>(ac => ac.GameId);
 
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.UserGameHistories)
-            .WithOne(ugh => ugh.User)
-            .HasForeignKey(ugh => ugh.UserId) // ("UserId) Shadow key
-            .IsRequired();  //each UserGameHistory must have a related User
+           modelBuilder.Entity<GameUserAccess>()
+               .HasOne(gua => gua.User)
+               .WithMany(u => u.GameUserAccesses)
+               .HasForeignKey(gua => gua.UserId);
 
-        modelBuilder.Entity<User>()
-             .HasMany(u => u.GameCreators)
-             .WithOne(gc => gc.User)
-             .HasForeignKey(gc => gc.UserId) // ("UserId) Shadow key
-             .IsRequired();  //each GameCreator must have a related User
-       
-        modelBuilder.Entity<Game>()
-             .HasMany(g => g.GameCreators)
-             .WithOne(gc => gc.Game)
-             .HasForeignKey(gc => gc.GameId) // ("GameId) Shadow key
-             .IsRequired();  //each GameCreator must have a related User
-
-        modelBuilder.Entity<Role>()
-            .HasMany(r => r.GameCreators)
-            .WithOne(ur => ur.Role)
-            .HasForeignKey(ur => ur.RoleId) // ("RoleId) Shadow key
-            .IsRequired();  //each GameCreator must have a related Role
-
-
-        modelBuilder.Entity<GameAccessCode>()
-            .HasMany(gac => gac.GameUserAccesses)
-            .WithOne(gua => gua.GameAccessCode)
-            .HasForeignKey(gua => gua.GameAccessCodeId) // ("GameAccesCodeId") Shadow key
-            .IsRequired();  //each GameUserAccess must have a related GameAccessCode,
+           modelBuilder.Entity<GameUserAccess>()
+               .HasOne(gua => gua.GameAccessCode)
+               .WithMany(ac => ac.GameUserAccesses)
+               .HasForeignKey(gua => gua.GameAccessCodeId);
+           */
 
         modelBuilder.Entity<Game>()
             .HasOne(g => g.GameAccessCode)
@@ -62,11 +41,58 @@ internal class RebusDbContext(DbContextOptions<RebusDbContext> options) : DbCont
             .HasForeignKey<GameAccessCode>(gac => gac.GameId) // ("GameId) Shadow key
             .IsRequired(); //each AccessCode must have a related Game,
 
-        modelBuilder.Entity<Game>()
+        modelBuilder.Entity<GameAccessCode>()
+            .HasMany(gac => gac.GameUserAccesses)
+            .WithOne(gua => gua.GameAccessCode)
+            .HasForeignKey(gua => gua.GameAccessCodeId) // ("GameAccesCodeId") Shadow key
+            .IsRequired();  //each GameUserAccess must have a related GameAccessCode,
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.GameUserAccesses)
+            .WithOne(ua => ua.User)
+            .HasForeignKey(ua => ua.UserId) // ("UserId") Shadow key
+            .IsRequired();  //each GameUserAccess must have a related User,
+
+
+
+
+        /*    modelBuilder.Entity<User>()
+                .HasMany(u => u.UserGameHistories)
+                .WithOne(ugh => ugh.User)
+                .HasForeignKey(ugh => ugh.UserId) // ("UserId) Shadow key
+                .IsRequired();  //each UserGameHistory must have a related User
+
+            modelBuilder.Entity<User>()
+                 .HasMany(u => u.GameCreators)
+                 .WithOne(gc => gc.User)
+                 .HasForeignKey(gc => gc.UserId) // ("UserId) Shadow key
+                 .IsRequired();  //each GameCreator must have a related User
+
+                modelBuilder.Entity<Role>()
+                .HasMany(r => r.GameCreators)
+                .WithOne(ur => ur.Role)
+                .HasForeignKey(ur => ur.RoleId) // ("RoleId) Shadow key
+                .IsRequired();  //each GameCreator must have a related Role
+
+                modelBuilder.Entity<Game>()
             .HasMany(g => g.UserGameHistories)
             .WithOne(ugh => ugh.Game)
             .HasForeignKey(ugh => ugh.GameId)
-            .IsRequired(); //each UserGameHistory must have a related game
+            .IsRequired(); //each UserGameHistory must have a related game 
+        
+                modelBuilder.Entity<Game>()
+             .HasMany(g => g.GameCreators)
+             .WithOne(gc => gc.Game)
+             .HasForeignKey(gc => gc.GameId) // ("GameId) Shadow key
+             .IsRequired();  //each GameCreator must have a related User
+
+
+         */
+
+
+
+
+
 
         //...more tables to be added
     }

@@ -21,7 +21,7 @@ public class GameDto
     public List<GameCreatorDto> GameCreators { get; set; } = [];
     public string? GameDescription { get; set; }
     public DateTime? DateCreated { get; set; }
-    public List<UserGameHistoryDto> UserGameHistories { get; set; } = [];
+    //public List<UserGameHistoryDto> UserGameHistories { get; set; } = [];
 
     public static GameDto? FromEntity(Game? Game)
     {
