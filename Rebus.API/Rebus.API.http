@@ -4,7 +4,10 @@
 GET {{Rebus.API_HostAddress}}/api/users
 
 ###
-GET {{Rebus.API_HostAddress}}/api/users/6
+GET {{Rebus.API_HostAddress}}/api/users/5
+
+###
+DELETE {{Rebus.API_HostAddress}}/api/users/5
 
 ###
 Post {{Rebus.API_HostAddress}}/api/users

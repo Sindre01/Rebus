@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Rebus.Domain\Rebus.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\Validators\" />
-  </ItemGroup>
-
 </Project>

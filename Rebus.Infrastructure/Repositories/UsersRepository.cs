@@ -15,11 +15,15 @@ internal class UsersRepository(RebusDbContext dbContext)
         return entity.UserId;
     }
 
+    public async Task Delete(User entity)
+    {
+        dbContext.Remove(entity);
+        await dbContext.SaveChangesAsync();
+    }
+
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         var users = await dbContext.Users
-           //.Include(u => u.GameUserAccesses)
-           //.ThenInclude(gua => gua.GameAccessCode)
             .ToListAsync();
         return users;
     }
@@ -27,10 +31,6 @@ internal class UsersRepository(RebusDbContext dbContext)
     public async Task<User?> GetByIdAsync(int id)
     {
         var user = await dbContext.Users
-          //  .Include(u => u.GameUserAccesses)
-            // .Include(u => u.GameCreators)
-            //.Include(u => u.UserGameHistories)
-            //.AsSplitQuery()
             .FirstOrDefaultAsync(x => x.UserId == id);
         return user;
     }

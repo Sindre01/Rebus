@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Rebus.Application.Users;
 using Rebus.Application.Users.Commands.CreateUser;
+using Rebus.Application.Users.Commands.DeleteUser;
 using Rebus.Application.Users.Dtos;
 using Rebus.Application.Users.Queries.GetAllUsers;
 using Rebus.Application.Users.Queries.GetUserById;
@@ -29,6 +30,18 @@ public class UsersController(IMediator mediator) : ControllerBase
        
         return Ok(user);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser([FromRoute] int id)
+    {
+        var isDeleted = await mediator.Send(new DeleteUserCommand(id));
+
+        if (isDeleted)
+            return NoContent();
+
+        return NotFound() ;
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateUser(CreateUserCommand command)
     {
