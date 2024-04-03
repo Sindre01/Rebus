@@ -8,6 +8,13 @@ namespace Rebus.Infrastructure.Repositories;
 internal class UsersRepository(RebusDbContext dbContext)
     : IUsersRepository
 {
+    public async Task<int> Create(User entity)
+    {
+        dbContext.Users.Add(entity);
+        await dbContext.SaveChangesAsync();
+        return entity.UserId;
+    }
+
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         var users = await dbContext.Users

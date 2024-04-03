@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rebus.Application.Users;
+using Rebus.Application.Users.Dtos;
 
 namespace Rebus.API.Controllers;
 
@@ -23,7 +24,12 @@ public class UsersController(IUsersService usersService) : ControllerBase
        
         return Ok(user);
     }
-
+    [HttpPost]
+    public async Task<IActionResult> CreateUser([FromBody]CreateUserDto createUserDto)
+    {
+        int id = await usersService.Create(createUserDto);
+        return CreatedAtAction(nameof(GetById), new {id }, null);
+    }
 
 
 }

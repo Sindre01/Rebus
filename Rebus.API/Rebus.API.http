@@ -5,3 +5,16 @@ GET {{Rebus.API_HostAddress}}/api/users
 
 ###
 GET {{Rebus.API_HostAddress}}/api/users/1
+
+###
+Post {{Rebus.API_HostAddress}}/api/users
+Content-Type: application/json
+
+{ 
+  "UserName" : "P",
+  "IsLoggedIn" : false,
+  "Email" : "Test@gmail.com"
+}
+
+###
+GET https://localhost:7246/api/users/3

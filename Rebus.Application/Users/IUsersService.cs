@@ -6,5 +6,6 @@ namespace Rebus.Application.Users
     {
         Task<IEnumerable<UserDto>> GetAllUsers();
         Task<UserDto?> GetById(int id);
+        Task<int> Create(CreateUserDto dto);  
     }
 }

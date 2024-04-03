@@ -10,6 +10,15 @@ internal class UsersService(IUsersRepository usersRepository,
     ILogger<UsersService> logger,
     IMapper mapper) : IUsersService
 {
+    public async Task<int> Create(CreateUserDto dto)
+    {
+        logger.LogInformation("Creating a new user");
+
+        var user = mapper.Map<User>(dto);
+        int id = await usersRepository.Create(user);
+        return id;
+    }
+
     public async Task<IEnumerable<UserDto>> GetAllUsers()
     {
         logger.LogInformation("Getting all users");

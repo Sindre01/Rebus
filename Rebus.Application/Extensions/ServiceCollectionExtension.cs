@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.Extensions.DependencyInjection;
 using Rebus.Application.GameUserAccesses;
 using Rebus.Application.Users;
 
@@ -8,8 +10,11 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplication(this IServiceCollection services)
     {
+        var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IGameUserAccessesService, GameUserAccessesService>();
-        services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
+        services.AddAutoMapper(applicationAssembly);
+        services.AddValidatorsFromAssembly(applicationAssembly)
+            .AddFluentValidationAutoValidation();
     }
 }

@@ -7,6 +7,17 @@ namespace Rebus.Application.Users.Dtos
     {
         public UsersProfile() 
         {
+            CreateMap<CreateUserDto, User>()
+                .ForMember(d => d.Location, opt => opt.MapFrom(
+                    src => new Location
+                    {
+                        Latitude = src.Latitude,
+                        Longitude = src.Longitude,
+                        City = src.City,
+                        Street = src.Street,
+                        PostalCode = src.PostalCode
+                    }));
+
             CreateMap<User, UserDto>()
                 .ForMember(d => d.Latitude, opt =>
                     opt.MapFrom(src => src.Location == null ? null : src.Location.Latitude))
@@ -16,8 +27,6 @@ namespace Rebus.Application.Users.Dtos
                     opt.MapFrom(src => src.Location == null ? null : src.Location.City))
                 .ForMember(d => d.Street, opt =>
                     opt.MapFrom(src => src.Location == null ? null : src.Location.Street))
-                .ForMember(d => d.PostalCode, opt =>
-                    opt.MapFrom(src => src.Location == null ? null : src.Location.PostalCode))
                 .ForMember(d => d.PostalCode, opt =>
                     opt.MapFrom(src => src.Location == null ? null : src.Location.PostalCode));
         }
