@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rebus.Application.Users.Commands.CreateUser;
 using Rebus.Domain.Entities;
 
 namespace Rebus.Application.Users.Dtos
@@ -7,7 +8,7 @@ namespace Rebus.Application.Users.Dtos
     {
         public UsersProfile() 
         {
-            CreateMap<CreateUserDto, User>()
+            CreateMap<CreateUserCommand, User>()
                 .ForMember(d => d.Location, opt => opt.MapFrom(
                     src => new Location
                     {

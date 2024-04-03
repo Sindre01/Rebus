@@ -2,11 +2,11 @@
 using FluentValidation;
 using Rebus.Application.Users.Dtos;
 
-namespace Rebus.Application.Users.Validators;
+namespace Rebus.Application.Users.Commands.CreateUser;
 
-public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
+public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
-    public CreateUserDtoValidator()
+    public CreateUserCommandValidator()
     {
         RuleFor(dto => dto.UserName)
             .Length(3, 100);

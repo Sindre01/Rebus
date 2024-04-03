@@ -4,14 +4,14 @@
 GET {{Rebus.API_HostAddress}}/api/users
 
 ###
-GET {{Rebus.API_HostAddress}}/api/users/1
+GET {{Rebus.API_HostAddress}}/api/users/6
 
 ###
 Post {{Rebus.API_HostAddress}}/api/users
 Content-Type: application/json
 
 { 
-  "UserName" : "P",
+  "UserName" : "Post",
   "IsLoggedIn" : false,
   "Email" : "Test@gmail.com"
 }

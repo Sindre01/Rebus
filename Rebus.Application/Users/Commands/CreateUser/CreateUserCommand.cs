@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using MediatR;
 
-namespace Rebus.Application.Users.Dtos;
+namespace Rebus.Application.Users.Commands.CreateUser;
 
-public class CreateUserDto
+public class CreateUserCommand : IRequest<int>
 {
     public string UserName { get; set; } = default!;
     public bool IsLoggedIn { get; set; }
@@ -16,5 +17,4 @@ public class CreateUserDto
     public string? City { get; set; }
     public string? Street { get; set; }
     public string? PostalCode { get; set; }
-
 }
