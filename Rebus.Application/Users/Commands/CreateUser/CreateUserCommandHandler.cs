@@ -12,7 +12,7 @@ public class CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger,
 {
     public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Creating a new user");
+        logger.LogInformation("Creating a new user {@User}", request);
 
         var user = mapper.Map<User>(request);
         int id = await usersRepository.Create(user);

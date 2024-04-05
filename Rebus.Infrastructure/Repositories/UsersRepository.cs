@@ -34,4 +34,7 @@ internal class UsersRepository(RebusDbContext dbContext)
             .FirstOrDefaultAsync(x => x.UserId == id);
         return user;
     }
+
+    public Task SaveChanges()
+        => dbContext.SaveChangesAsync();
 }

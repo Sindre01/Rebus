@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rebus.Application.Users;
 using Rebus.Application.Users.Commands.CreateUser;
 using Rebus.Application.Users.Commands.DeleteUser;
+using Rebus.Application.Users.Commands.UpdateUser;
 using Rebus.Application.Users.Dtos;
 using Rebus.Application.Users.Queries.GetAllUsers;
 using Rebus.Application.Users.Queries.GetUserById;
@@ -40,6 +41,18 @@ public class UsersController(IMediator mediator) : ControllerBase
             return NoContent();
 
         return NotFound() ;
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateUserLocation([FromRoute] int id, UpdateUserLocationCommand command)
+    {
+        command.Id = id;
+        var isUpdated = await mediator.Send(command);
+
+        if (isUpdated)
+            return NoContent();
+
+        return NotFound();
     }
 
     [HttpPost]

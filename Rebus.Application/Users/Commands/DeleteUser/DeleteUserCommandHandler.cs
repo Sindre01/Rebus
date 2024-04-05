@@ -9,7 +9,7 @@ public class DeleteUserCommandHandler(ILogger<DeleteUserCommandHandler> logger,
 {
     public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation($"Deleting user with id : {request.Id}");
+        logger.LogInformation("Deleting user with id : {request.Id}", request.Id);
         var user = await usersRepository.GetByIdAsync(request.Id);
         if (user == null)
         {

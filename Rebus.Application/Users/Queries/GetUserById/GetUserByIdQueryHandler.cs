@@ -12,7 +12,7 @@ public class GetUserByIdQueryHandler(ILogger<GetUserByIdQueryHandler> logger,
 {
     public async Task<UserDto?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation($"Getting user with id {request.Id}");
+        logger.LogInformation("Getting user with id {UserId}", request.Id);
         var user = await usersRepository.GetByIdAsync(request.Id);
         var userDto = mapper.Map<UserDto?>(user);
         return userDto;

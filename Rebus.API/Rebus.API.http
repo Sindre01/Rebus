@@ -4,7 +4,7 @@
 GET {{Rebus.API_HostAddress}}/api/users
 
 ###
-GET {{Rebus.API_HostAddress}}/api/users/5
+GET {{Rebus.API_HostAddress}}/api/users/1
 
 ###
 DELETE {{Rebus.API_HostAddress}}/api/users/5
@@ -21,3 +21,14 @@ Content-Type: application/json
 
 ###
 GET https://localhost:7246/api/users/3
+
+###
+
+PATCH {{Rebus.API_HostAddress}}/api/users/1
+Content-Type: application/json
+
+{
+  "city" : "Oslo"
+}
+
+###

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Rebus.Application.Users.Commands.CreateUser;
+using Rebus.Application.Users.Commands.UpdateUser;
 using Rebus.Domain.Entities;
 
 namespace Rebus.Application.Users.Dtos
@@ -8,6 +9,18 @@ namespace Rebus.Application.Users.Dtos
     {
         public UsersProfile() 
         {
+      
+            CreateMap<UpdateUserLocationCommand, User>()
+                .ForMember(d => d.Location, opt => opt.MapFrom(
+                    src => new Location
+                    {
+                        Latitude = src.Latitude,
+                        Longitude = src.Longitude,
+                        City = src.City,
+                        Street = src.Street,
+                        PostalCode = src.PostalCode
+                    }));
+
             CreateMap<CreateUserCommand, User>()
                 .ForMember(d => d.Location, opt => opt.MapFrom(
                     src => new Location
