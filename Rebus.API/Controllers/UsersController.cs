@@ -15,14 +15,14 @@ namespace Rebus.API.Controllers;
 public class UsersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
     {
         var users = await mediator.Send(new GetAllUsersQuery());
         return Ok(users);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<ActionResult<UserDto?>> GetById([FromRoute] int id)
     {
         var user = await mediator.Send(new GetUserByIdQuery(id));
 
@@ -33,6 +33,8 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
         var isDeleted = await mediator.Send(new DeleteUserCommand(id));
@@ -44,6 +46,8 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateUserLocation([FromRoute] int id, UpdateUserLocationCommand command)
     {
         command.Id = id;
