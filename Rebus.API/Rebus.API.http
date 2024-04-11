@@ -1,10 +1,10 @@
 @Rebus.API_HostAddress = https://localhost:7246
 
 
-GET {{Rebus.API_HostAddress}}/api/users
+GET {{Rebus.API_HostAddress}}/api/users/games/accesses
 
 ###
-GET {{Rebus.API_HostAddress}}/api/users/1
+GET {{Rebus.API_HostAddress}}/api/users
 
 ###
 DELETE {{Rebus.API_HostAddress}}/api/users/5

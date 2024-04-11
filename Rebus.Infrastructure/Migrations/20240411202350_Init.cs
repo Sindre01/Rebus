@@ -18,6 +18,9 @@ namespace Rebus.Infrastructure.Migrations
                     GameId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GameName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccessCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CurrentPlayers = table.Column<int>(type: "int", nullable: true),
+                    MaxPlayers = table.Column<int>(type: "int", nullable: true),
                     GameDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -49,12 +52,12 @@ namespace Rebus.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsLoggedIn = table.Column<bool>(type: "bit", nullable: false),
-                    Location_locationId = table.Column<int>(type: "int", nullable: true),
-                    Location_latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location_longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location_city = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location_street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location_postalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location_LocationId = table.Column<int>(type: "int", nullable: true),
+                    Location_Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location_Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location_City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location_Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location_PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateJoined = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -62,29 +65,6 @@ namespace Rebus.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GameAccessCodes",
-                columns: table => new
-                {
-                    GameAccessCodeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false),
-                    UsageLimit = table.Column<int>(type: "int", nullable: true),
-                    TimeUsed = table.Column<int>(type: "int", nullable: true),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GameAccessCodes", x => x.GameAccessCodeId);
-                    table.ForeignKey(
-                        name: "FK_GameAccessCodes_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
-                        principalColumn: "GameId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,6 +95,33 @@ namespace Rebus.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GameCreator_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserGameAccesses",
+                columns: table => new
+                {
+                    UserGameAccessId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    AccessTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserGameAccesses", x => x.UserGameAccessId);
+                    table.ForeignKey(
+                        name: "FK_UserGameAccesses_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "GameId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserGameAccesses_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -156,39 +163,6 @@ namespace Rebus.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "GameUserAccesses",
-                columns: table => new
-                {
-                    GameUserAccessId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    GameAccessCodeId = table.Column<int>(type: "int", nullable: false),
-                    AccessTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GameUserAccesses", x => x.GameUserAccessId);
-                    table.ForeignKey(
-                        name: "FK_GameUserAccesses_GameAccessCodes_GameAccessCodeId",
-                        column: x => x.GameAccessCodeId,
-                        principalTable: "GameAccessCodes",
-                        principalColumn: "GameAccessCodeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GameUserAccesses_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GameAccessCodes_GameId",
-                table: "GameAccessCodes",
-                column: "GameId",
-                unique: true);
-
             migrationBuilder.CreateIndex(
                 name: "IX_GameCreator_GameId",
                 table: "GameCreator",
@@ -205,13 +179,13 @@ namespace Rebus.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameUserAccesses_GameAccessCodeId",
-                table: "GameUserAccesses",
-                column: "GameAccessCodeId");
+                name: "IX_UserGameAccesses_GameId",
+                table: "UserGameAccesses",
+                column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameUserAccesses_UserId",
-                table: "GameUserAccesses",
+                name: "IX_UserGameAccesses_UserId",
+                table: "UserGameAccesses",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -237,22 +211,19 @@ namespace Rebus.Infrastructure.Migrations
                 name: "GameCreator");
 
             migrationBuilder.DropTable(
-                name: "GameUserAccesses");
+                name: "UserGameAccesses");
 
             migrationBuilder.DropTable(
                 name: "UserGameHistories");
 
             migrationBuilder.DropTable(
-                name: "GameAccessCodes");
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Games");
         }
     }
 }

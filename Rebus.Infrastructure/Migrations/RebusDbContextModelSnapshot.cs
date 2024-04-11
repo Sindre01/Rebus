@@ -30,6 +30,13 @@ namespace Rebus.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameId"));
 
+                    b.Property<string>("AccessCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CurrentPlayers")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -40,43 +47,15 @@ namespace Rebus.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MaxPlayers")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("GameId");
 
                     b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("Rebus.Domain.Entities.GameAccessCode", b =>
-                {
-                    b.Property<int>("GameAccessCodeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameAccessCodeId"));
-
-                    b.Property<DateTime?>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("TimeUsed")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsageLimit")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameAccessCodeId");
-
-                    b.HasIndex("GameId")
-                        .IsUnique();
-
-                    b.ToTable("GameAccessCodes");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.GameCreator", b =>
@@ -108,32 +87,6 @@ namespace Rebus.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GameCreator");
-                });
-
-            modelBuilder.Entity("Rebus.Domain.Entities.GameUserAccess", b =>
-                {
-                    b.Property<int>("GameUserAccessId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameUserAccessId"));
-
-                    b.Property<DateTime>("AccessTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("GameAccessCodeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameUserAccessId");
-
-                    b.HasIndex("GameAccessCodeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GameUserAccesses");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.Role", b =>
@@ -185,6 +138,32 @@ namespace Rebus.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Rebus.Domain.Entities.UserGameAccess", b =>
+                {
+                    b.Property<int>("UserGameAccessId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserGameAccessId"));
+
+                    b.Property<DateTime>("AccessTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserGameAccessId");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserGameAccesses");
+                });
+
             modelBuilder.Entity("Rebus.Domain.Entities.UserGameHistory", b =>
                 {
                     b.Property<int>("UserGameHistoryId")
@@ -219,17 +198,6 @@ namespace Rebus.Infrastructure.Migrations
                     b.ToTable("UserGameHistories");
                 });
 
-            modelBuilder.Entity("Rebus.Domain.Entities.GameAccessCode", b =>
-                {
-                    b.HasOne("Rebus.Domain.Entities.Game", "Game")
-                        .WithOne("GameAccessCode")
-                        .HasForeignKey("Rebus.Domain.Entities.GameAccessCode", "GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
             modelBuilder.Entity("Rebus.Domain.Entities.GameCreator", b =>
                 {
                     b.HasOne("Rebus.Domain.Entities.Game", "Game")
@@ -257,25 +225,6 @@ namespace Rebus.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Rebus.Domain.Entities.GameUserAccess", b =>
-                {
-                    b.HasOne("Rebus.Domain.Entities.GameAccessCode", "GameAccessCode")
-                        .WithMany("GameUserAccesses")
-                        .HasForeignKey("GameAccessCodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Rebus.Domain.Entities.User", "User")
-                        .WithMany("GameUserAccesses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GameAccessCode");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Rebus.Domain.Entities.User", b =>
                 {
                     b.OwnsOne("Rebus.Domain.Entities.Location", "Location", b1 =>
@@ -283,22 +232,22 @@ namespace Rebus.Infrastructure.Migrations
                             b1.Property<int>("UserId")
                                 .HasColumnType("int");
 
-                            b1.Property<string>("city")
+                            b1.Property<string>("City")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("latitude")
+                            b1.Property<string>("Latitude")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<int>("locationId")
+                            b1.Property<int>("LocationId")
                                 .HasColumnType("int");
 
-                            b1.Property<string>("longitude")
+                            b1.Property<string>("Longitude")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("postalCode")
+                            b1.Property<string>("PostalCode")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("street")
+                            b1.Property<string>("Street")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("UserId");
@@ -310,6 +259,25 @@ namespace Rebus.Infrastructure.Migrations
                         });
 
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Rebus.Domain.Entities.UserGameAccess", b =>
+                {
+                    b.HasOne("Rebus.Domain.Entities.Game", "Game")
+                        .WithMany("UserGameAccesses")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Rebus.Domain.Entities.User", "User")
+                        .WithMany("UserGameAccesses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.UserGameHistory", b =>
@@ -341,16 +309,11 @@ namespace Rebus.Infrastructure.Migrations
 
             modelBuilder.Entity("Rebus.Domain.Entities.Game", b =>
                 {
-                    b.Navigation("GameAccessCode");
-
                     b.Navigation("GameCreators");
 
-                    b.Navigation("UserGameHistories");
-                });
+                    b.Navigation("UserGameAccesses");
 
-            modelBuilder.Entity("Rebus.Domain.Entities.GameAccessCode", b =>
-                {
-                    b.Navigation("GameUserAccesses");
+                    b.Navigation("UserGameHistories");
                 });
 
             modelBuilder.Entity("Rebus.Domain.Entities.Role", b =>
@@ -362,7 +325,7 @@ namespace Rebus.Infrastructure.Migrations
                 {
                     b.Navigation("GameCreators");
 
-                    b.Navigation("GameUserAccesses");
+                    b.Navigation("UserGameAccesses");
 
                     b.Navigation("UserGameHistories");
                 });

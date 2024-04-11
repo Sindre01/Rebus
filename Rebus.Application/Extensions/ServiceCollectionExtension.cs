@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using Rebus.Application.GameUserAccesses;
+using Rebus.Application.UserGameAccesses;
 using Rebus.Application.Users;
 
 namespace Rebus.Application.Extensions;
@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
     {
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
-        services.AddScoped<IGameUserAccessesService, GameUserAccessesService>();
+        services.AddScoped<IUserGameAccessesService, UserGameAccessesService>();
         services.AddAutoMapper(applicationAssembly);
         services.AddValidatorsFromAssembly(applicationAssembly)
             .AddFluentValidationAutoValidation();

@@ -6,7 +6,7 @@ public class User
     public bool IsLoggedIn { get; set; }
     public Location? Location { get; set; }
 
-    public List<GameUserAccess> GameUserAccesses { get; set; } = [];
+    public List<UserGameAccess> UserGameAccesses { get; set; } = [];
     public List<UserGameHistory> UserGameHistories { get; set; } = [];
     public List<GameCreator> GameCreators { get; set; } = [];
     public string? Email { get; set; }
