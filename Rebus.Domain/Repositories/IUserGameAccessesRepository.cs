@@ -7,4 +7,8 @@ public interface IUserGameAccessesRepository
 {
     Task<IEnumerable<UserGameAccess>> GetAllAsync();
     Task<UserGameAccess?> GetByIdAsync(int id);
+    Task<int> Create(UserGameAccess entity);
+    Task Delete(UserGameAccess entity);
+    Task SaveChanges();
+
 }

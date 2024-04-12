@@ -1,5 +1,5 @@
 ﻿using Rebus.Application.GameCreators.Dtos;
-using Rebus.Application.GameUserAccesses.Dtos;
+using Rebus.Application.UserGameAccesses.Dtos;
 using Rebus.Application.UserGameHistories.Dtos;
 using Rebus.Domain.Entities;
 
@@ -18,7 +18,7 @@ public  class UserDto
     public string? Street { get; set; }
     public string? PostalCode { get; set; }
 
-    //public List<GameUserAccessDto> GameUserAccesses { get; set; } = [];
+    //public List<UserGameAccessDto> UserGameAccesses { get; set; } = [];
     //public List<UserGameHistoryDto> UserGameHistories { get; set; } = [];
     //public List<GameCreatorDto> GameCreators { get; set; } = [];
     public string? FullName { get; set; }

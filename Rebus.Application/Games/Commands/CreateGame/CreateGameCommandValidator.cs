@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rebus.Application
+namespace Rebus.Application.Games.Commands.CreateGame
 {
-    internal class UserGameAccesses
+    internal class CreateGameCommandValidator
     {
     }
 }

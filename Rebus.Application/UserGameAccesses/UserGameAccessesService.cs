@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Rebus.Application.UserGameAccesses.Dtos;
 using Rebus.Domain.Repositories;
 
 namespace Rebus.Application.UserGameAccesses;

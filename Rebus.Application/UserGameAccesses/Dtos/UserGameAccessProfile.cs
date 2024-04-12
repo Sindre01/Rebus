@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rebus.Application.UserGameAccesses.Commands.CreateUserGameAccess;
 using Rebus.Domain.Entities;
 
 namespace Rebus.Application.UserGameAccesses.Dtos
@@ -7,6 +8,7 @@ namespace Rebus.Application.UserGameAccesses.Dtos
     {
         public UserGameAccessProfile()
         {
+            CreateMap<CreateUserGameAccessCommand, UserGameAccess>();
             CreateMap<UserGameAccess, UserGameAccessDto>();
             //.ForMember(d => d.User, opt =>
             //  opt.MapFrom(src => src.User))

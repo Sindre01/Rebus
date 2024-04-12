@@ -6,8 +6,8 @@ namespace Rebus.Application.UserGameAccesses.Commands.CreateUserGameAccess;
 
 public class CreateUserGameAccessCommand : IRequest
 {
-    public int GameUserAccessId { get; set; }
-    public UserDto User { get; set; } = null!; // Required reference navigation to principal
-    public GameDto Game { get; set; } = null!; // Required reference navigation to principal
     public DateTime AccessTime { get; set; }
+
+    public int UserId { get; set; }
+    public int GameId { get; set; }
 }
