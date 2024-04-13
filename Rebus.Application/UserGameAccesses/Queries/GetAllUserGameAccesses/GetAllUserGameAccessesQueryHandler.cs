@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Rebus.Application.UserGameAccesses.Dtos;
-using Rebus.Application.Users.Dtos;
 using Rebus.Domain.Repositories;
 
 namespace Rebus.Application.UserGameAccesses.Queries.GetAllUserGameAccesses;
@@ -13,9 +12,9 @@ IMapper mapper,
 {
     public async Task<IEnumerable<UserGameAccessDto>> Handle(GetAllUserGameAccessesQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting all users");
+        logger.LogInformation("Getting all userGameAccesses");
         var userGameAccesses = await userGameAccessesRepository.GetAllAsync();
-        var userGameAccessesDto = mapper.Map<IEnumerable<UserDto>>(userGameAccesses);
+        var userGameAccessesDto = mapper.Map<IEnumerable<UserGameAccessDto>>(userGameAccesses);
         return userGameAccessesDto!;
     }
 }

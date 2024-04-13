@@ -18,6 +18,7 @@ public class CreateUserGameAccessCommandHandler(ILogger<CreateUserGameAccessComm
         logger.LogInformation("Creating new UserGameAccess: {@UserGameAccessRequest}", request);
         var user = await usersRepository.GetByIdAsync(request.UserId);
         if (user == null) throw new NotFoundException(nameof(User), request.UserId.ToString());
+
         var game = await gamesRepository.GetByIdAsync(request.GameId);
         if (game == null) throw new NotFoundException(nameof(Game), request.GameId.ToString());
 

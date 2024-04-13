@@ -18,8 +18,8 @@ internal class RebusSeeder(RebusDbContext dbContext) : IRebusSeeder
             dbContext.Games.Add(game);
             await dbContext.SaveChangesAsync();
 
-            var gameUserAccess = new UserGameAccess { AccessTime = DateTime.UtcNow, User = user, Game = game};
-            dbContext.UserGameAccesses.Add(gameUserAccess);
+            var userGameAccess = new UserGameAccess { AccessTime = DateTime.UtcNow, User = user, Game = game};
+            dbContext.UserGameAccesses.Add(userGameAccess);
             await dbContext.SaveChangesAsync();
     
         }

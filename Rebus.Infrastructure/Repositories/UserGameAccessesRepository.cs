@@ -15,9 +15,12 @@ internal class UserGameAccessesRepository(RebusDbContext dbContext)
         return entity.UserGameAccessId;
     }
 
-    public Task Delete(UserGameAccess entity)
+    public async Task Delete(UserGameAccess entity)
     {
-        throw new NotImplementedException();
+
+        dbContext.Remove(entity);
+        await dbContext.SaveChangesAsync();
+   
     }
 
     public async Task<IEnumerable<UserGameAccess>> GetAllAsync()
@@ -34,12 +37,20 @@ internal class UserGameAccessesRepository(RebusDbContext dbContext)
         var userGameAccesses = await dbContext.UserGameAccesses
             .Include(uga => uga.User)
             .Include(uga => uga.Game)
-            .FirstOrDefaultAsync(x => x.UserId == id);
+            .FirstOrDefaultAsync(x => x.UserGameAccessId == id);
+        return userGameAccesses;
+    }
+
+    public async Task<IEnumerable<UserGameAccess>> GetByUserIdAsync(int id)
+    {
+        var userGameAccesses = await dbContext.UserGameAccesses
+            .Include(uga => uga.User)
+            .Include(uga => uga.Game)
+            .Where(x => x.UserId == id)
+            .ToListAsync();
         return userGameAccesses;
     }
 
     public Task SaveChanges()
-    {
-        throw new NotImplementedException();
-    }
+        => dbContext.SaveChangesAsync();
 }
