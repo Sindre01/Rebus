@@ -20,6 +20,9 @@ GET {{Rebus.API_HostAddress}}/api/games
 DELETE {{Rebus.API_HostAddress}}/api/users/3
 
 ###
+DELETE {{Rebus.API_HostAddress}}/api/users/5/accesses
+
+###
 DELETE {{Rebus.API_HostAddress}}/api/games/3
 
 ###
@@ -42,7 +45,7 @@ Content-Type: application/json
 }
 ###
 
-POST {{Rebus.API_HostAddress}}/api/users/23/games/4/access
+POST {{Rebus.API_HostAddress}}/api/users/4/games/4/access
 Content-Type: application/json
 
 {

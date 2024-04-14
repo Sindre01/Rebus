@@ -10,6 +10,7 @@ public interface IUserGameAccessesRepository
     Task<UserGameAccess?> GetByIdAsync(int id);
     Task<int> Create(UserGameAccess entity);
     Task Delete(UserGameAccess entity);
+    Task Delete(IEnumerable<UserGameAccess> entities);
     Task SaveChanges();
 
 }

@@ -23,6 +23,12 @@ internal class UserGameAccessesRepository(RebusDbContext dbContext)
    
     }
 
+    public async Task Delete(IEnumerable<UserGameAccess> entities)
+    {
+        dbContext.UserGameAccesses.RemoveRange(entities);
+        await dbContext.SaveChangesAsync();
+    }
+
     public async Task<IEnumerable<UserGameAccess>> GetAllAsync()
     {
         var userGameAccesses = await dbContext.UserGameAccesses

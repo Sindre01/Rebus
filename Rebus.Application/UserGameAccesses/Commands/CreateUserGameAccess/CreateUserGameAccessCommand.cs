@@ -1,10 +1,8 @@
 ﻿using MediatR;
-using Rebus.Application.Games.Dtos;
-using Rebus.Application.Users.Dtos;
 
 namespace Rebus.Application.UserGameAccesses.Commands.CreateUserGameAccess;
 
-public class CreateUserGameAccessCommand : IRequest
+public class CreateUserGameAccessCommand : IRequest<int>
 {
     public DateTime AccessTime { get; set; }
 

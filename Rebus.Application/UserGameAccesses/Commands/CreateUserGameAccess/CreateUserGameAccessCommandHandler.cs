@@ -11,11 +11,15 @@ public class CreateUserGameAccessCommandHandler(ILogger<CreateUserGameAccessComm
     IUsersRepository usersRepository,
     IGamesRepository gamesRepository,
     IUserGameAccessesRepository userGameAccessesRepository,
-    IMapper mapper) : IRequestHandler<CreateUserGameAccessCommand>
+    IMapper mapper) : IRequestHandler<CreateUserGameAccessCommand, int>
 {
-    public async Task Handle(CreateUserGameAccessCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateUserGameAccessCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Creating new UserGameAccess: {@UserGameAccessRequest}", request);
+        logger.LogInformation("Creating new UserGameAccess: {@UserGameAccessRequest}, for user with id: {UserID} to game with id: {GameID}",
+            request, 
+            request.UserId,
+            request.GameId);
+
         var user = await usersRepository.GetByIdAsync(request.UserId);
         if (user == null) throw new NotFoundException(nameof(User), request.UserId.ToString());
 
@@ -24,7 +28,7 @@ public class CreateUserGameAccessCommandHandler(ILogger<CreateUserGameAccessComm
 
         var userGameAccess = mapper.Map<UserGameAccess>(request);
 
-        await userGameAccessesRepository.Create(userGameAccess);
+        return await userGameAccessesRepository.Create(userGameAccess);
 
 
     }

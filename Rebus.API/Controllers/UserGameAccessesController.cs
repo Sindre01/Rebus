@@ -1,9 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Rebus.Application.UserGameAccesses.Commands.CreateUserGameAccess;
+using Rebus.Application.UserGameAccesses.Commands.DeleteAllUserGameAccessByUserId;
 using Rebus.Application.UserGameAccesses.Dtos;
 using Rebus.Application.UserGameAccesses.Queries.GetAllUserGameAccesses;
 using Rebus.Application.UserGameAccesses.Queries.GetUserGameAccessById;
+using Rebus.Application.Users.Commands.DeleteUser;
+using Rebus.Domain.Entities;
 
 namespace Rebus.API.Controllers;
 
@@ -21,7 +24,7 @@ public class UserGameAccessesController(
     }
 
     [HttpGet("{id}/games/accesses")]
-    public async Task<ActionResult<UserGameAccessDto?>> GetById([FromRoute] int id)
+    public async Task<ActionResult<UserGameAccessDto?>> GetByUserId([FromRoute] int id)
     {
         var gameUserAccesses = await mediator.Send(new GetUserGameAccessesByUserIdQuery(id));
         if (gameUserAccesses is null)
@@ -35,8 +38,17 @@ public class UserGameAccessesController(
     {
         command.UserId = userId;
         command.GameId = gameId;
-        await mediator.Send(command);
+        var userGameAccessId = await mediator.Send(command);
         return Created();
+       // return CreatedAtAction(nameof(GetByUserId), new {userId, gameId}, "accesses");
+    }
+
+    [HttpDelete("{userId}/accesses")]
+    public async Task<IActionResult> DeleteUserGameAccessesByUserId([FromRoute] int userId)
+    {
+         await mediator.Send(new DeleteAllUserGameAccessesByUserIdCommand(userId));
+
+        return NoContent();
     }
 
 
