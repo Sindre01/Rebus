@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace Rebus.Application.Games.Commands.CreateGame
+namespace Rebus.Application.Games.Commands.CreateGame;
+
+public  class CreateGameCommandValidator : AbstractValidator<CreateGameCommand>
 {
-    internal class CreateGameCommandValidator
+    public CreateGameCommandValidator()
     {
+        RuleFor(game => game.CurrentPlayers)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Current players must be a positive number");
+
+        RuleFor(game => game.MaxPlayers)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Max players must be a positive number");
     }
+
 }

@@ -42,15 +42,12 @@ Content-Type: application/json
 }
 ###
 
-POST {{Rebus.API_HostAddress}}/api/users/4/games/4/access
+POST {{Rebus.API_HostAddress}}/api/users/23/games/4/access
 Content-Type: application/json
 
 {
   "AccessTime" : "2019-01-06"
 }
-
-
-
 
 
 ###
