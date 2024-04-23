@@ -1,6 +1,7 @@
 
 using Rebus.API.Middlewares;
 using Rebus.Application.Extensions;
+using Rebus.Domain.Entities;
 using Rebus.Infrastructure.Extensions;
 using Rebus.Infrastructure.Seeders;
 using Serilog;
@@ -39,6 +40,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapIdentityApi<User>();
 
 app.UseAuthorization();
 

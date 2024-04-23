@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Rebus.Application.Users.Commands.CreateUser;
 using Rebus.Domain.Entities;
 using Rebus.Domain.Repositories;
 

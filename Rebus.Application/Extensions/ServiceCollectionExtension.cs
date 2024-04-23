@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using Rebus.Application.UserGameAccesses;
-using Rebus.Application.Users;
 
 namespace Rebus.Application.Extensions;
 

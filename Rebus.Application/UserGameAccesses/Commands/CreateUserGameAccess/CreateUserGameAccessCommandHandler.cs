@@ -8,7 +8,6 @@ using Rebus.Domain.Repositories;
 namespace Rebus.Application.UserGameAccesses.Commands.CreateUserGameAccess;
 
 public class CreateUserGameAccessCommandHandler(ILogger<CreateUserGameAccessCommand> logger,
-    IUsersRepository usersRepository,
     IGamesRepository gamesRepository,
     IUserGameAccessesRepository userGameAccessesRepository,
     IMapper mapper) : IRequestHandler<CreateUserGameAccessCommand, int>
@@ -20,8 +19,8 @@ public class CreateUserGameAccessCommandHandler(ILogger<CreateUserGameAccessComm
             request.UserId,
             request.GameId);
 
-        var user = await usersRepository.GetByIdAsync(request.UserId);
-        if (user == null) throw new NotFoundException(nameof(User), request.UserId.ToString());
+      /*  var user = await usersRepository.GetByIdAsync(request.UserId);
+        if (user == null) throw new NotFoundException(nameof(User), request.UserId.ToString());*/
 
         var game = await gamesRepository.GetByIdAsync(request.GameId);
         if (game == null) throw new NotFoundException(nameof(Game), request.GameId.ToString());

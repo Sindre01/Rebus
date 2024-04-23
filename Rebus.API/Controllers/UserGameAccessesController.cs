@@ -5,8 +5,6 @@ using Rebus.Application.UserGameAccesses.Commands.DeleteAllUserGameAccessByUserI
 using Rebus.Application.UserGameAccesses.Dtos;
 using Rebus.Application.UserGameAccesses.Queries.GetAllUserGameAccesses;
 using Rebus.Application.UserGameAccesses.Queries.GetUserGameAccessById;
-using Rebus.Application.Users.Commands.DeleteUser;
-using Rebus.Domain.Entities;
 
 namespace Rebus.API.Controllers;
 
@@ -24,7 +22,7 @@ public class UserGameAccessesController(
     }
 
     [HttpGet("{id}/games/accesses")]
-    public async Task<ActionResult<UserGameAccessDto?>> GetByUserId([FromRoute] int id)
+    public async Task<ActionResult<UserGameAccessDto?>> GetByUserId([FromRoute] string id)
     {
         var gameUserAccesses = await mediator.Send(new GetUserGameAccessesByUserIdQuery(id));
         if (gameUserAccesses is null)
@@ -44,7 +42,7 @@ public class UserGameAccessesController(
     }
 
     [HttpDelete("{userId}/accesses")]
-    public async Task<IActionResult> DeleteUserGameAccessesByUserId([FromRoute] int userId)
+    public async Task<IActionResult> DeleteUserGameAccessesByUserId([FromRoute] string userId)
     {
          await mediator.Send(new DeleteAllUserGameAccessesByUserIdCommand(userId));
 

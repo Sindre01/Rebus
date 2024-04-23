@@ -61,3 +61,20 @@ Content-Type: application/json
   "city" : "Oslo"
 }
 
+###
+POST {{Rebus.API_HostAddress}}/register
+Content-Type: application/json
+
+{ 
+  "email": "testuser@test.com",
+  "password": "Password1!"
+}
+
+###
+POST {{Rebus.API_HostAddress}}/login
+Content-Type: application/json
+
+{ 
+  "email": "testuser@test.com",
+  "password": "Password1!"
+}
