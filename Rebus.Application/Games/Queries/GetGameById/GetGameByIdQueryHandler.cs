@@ -2,8 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Rebus.Application.Games.Dtos;
-using Rebus.Application.Users.Dtos;
-using Rebus.Application.Users.Queries.GetUserById;
 using Rebus.Domain.Repositories;
 
 namespace Rebus.Application.Games.Queries.GetGameById;

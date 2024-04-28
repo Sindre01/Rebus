@@ -47,7 +47,7 @@ internal class UserGameAccessesRepository(RebusDbContext dbContext)
         return userGameAccesses;
     }
 
-    public async Task<IEnumerable<UserGameAccess>> GetByUserIdAsync(int id)
+    public async Task<IEnumerable<UserGameAccess>> GetByUserIdAsync(string id)
     {
         var userGameAccesses = await dbContext.UserGameAccesses
             .Include(uga => uga.User)

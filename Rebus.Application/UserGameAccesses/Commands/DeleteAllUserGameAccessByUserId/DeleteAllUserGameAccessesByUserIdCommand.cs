@@ -2,7 +2,7 @@
 
 namespace Rebus.Application.UserGameAccesses.Commands.DeleteAllUserGameAccessByUserId;
 
-public class DeleteAllUserGameAccessesByUserIdCommand(int userId) : IRequest
+public class DeleteAllUserGameAccessesByUserIdCommand(string userId) : IRequest
 {
-    public int UserId { get; } = userId;
+    public string UserId { get; } = userId;
 }

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Rebus.Application.Users.Commands.DeleteUser;
 using Rebus.Domain.Repositories;
 
 namespace Rebus.Application.Games.Commands.DeleteGame;

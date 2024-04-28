@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Rebus.Domain.Entities;
 
 namespace Rebus.Infrastructure.Persistance;
-internal class RebusDbContext(DbContextOptions<RebusDbContext> options) : DbContext(options)
+internal class RebusDbContext(DbContextOptions<RebusDbContext> options)
+     : IdentityDbContext<User>(options)
 {
     internal DbSet<User> Users { get; set; } 
     internal DbSet<UserGameHistory> UserGameHistories { get; set; }
@@ -18,8 +20,6 @@ internal class RebusDbContext(DbContextOptions<RebusDbContext> options) : DbCont
               .OwnsOne(r => r.Location);
 
         //relations:
-
-
         modelBuilder.Entity<Game>()
             .HasMany(g => g.UserGameAccesses)
             .WithOne(uga => uga.Game)

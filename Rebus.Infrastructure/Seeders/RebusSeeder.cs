@@ -10,7 +10,7 @@ internal class RebusSeeder(RebusDbContext dbContext) : IRebusSeeder
         if (!dbContext.Games.Any())
         {
 
-            var user = new User { UserName = "Example User" };
+/*            var user = new User { UserName = "Example User" };
             dbContext.Users.Add(user);
             await dbContext.SaveChangesAsync();
 
@@ -20,7 +20,7 @@ internal class RebusSeeder(RebusDbContext dbContext) : IRebusSeeder
 
             var userGameAccess = new UserGameAccess { AccessTime = DateTime.UtcNow, User = user, Game = game};
             dbContext.UserGameAccesses.Add(userGameAccess);
-            await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();*/
     
         }
 

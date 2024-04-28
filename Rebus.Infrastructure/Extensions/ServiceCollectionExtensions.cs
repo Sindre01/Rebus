@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rebus.Domain.Entities;
 using Rebus.Domain.Repositories;
 using Rebus.Infrastructure.Persistance;
 using Rebus.Infrastructure.Repositories;
@@ -19,8 +20,10 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(connectionString)
             .EnableSensitiveDataLogging());
         
+        services.AddIdentityApiEndpoints<User>()
+            .AddEntityFrameworkStores<RebusDbContext>();
+
         services.AddScoped<IRebusSeeder, RebusSeeder>();
-        services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IGamesRepository, GamesRepository>();
         services.AddScoped<IUserGameAccessesRepository, UserGameAccessesRepository>();
     }
